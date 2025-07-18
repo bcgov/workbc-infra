@@ -36,14 +36,14 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Configure Terragrunt
-        uses: peter-murray/terragrunt-github-action@v1.0.0
+        uses: autero1/action-terragrunt@v3
         with:
-          terragrunt_version: ${{ env.TG_VERSION }}
+          terragrunt-version: ${{ env.TG_VERSION }}
 
       - name: Terragrunt Apply
         working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
