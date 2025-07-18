@@ -35,6 +35,11 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_TO_USE_DEV }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
       - name: Configure Terragrunt
         uses: peter-murray/terragrunt-github-action@v1.0.0
         with:
@@ -44,4 +49,4 @@ jobs:
         working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
         env:
           LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
-        run: terragrunt run-all apply --terragrunt-non-interactive
+        run: terragrunt run-all apply --non-interactive
