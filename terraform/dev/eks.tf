@@ -133,7 +133,7 @@ resource "aws_eks_node_group" "eks-ng" {
   cluster_name    = aws_eks_cluster.workbc-cluster.name
   node_group_name = "eks-ng"
   node_role_arn   = aws_iam_role.eks-ng-role.arn
-  subnet_ids      = module.network.aws_subnet_ids.app.ids
+  subnet_ids      = data.aws_subnets.app.ids
 
   scaling_config {
     desired_size = 2
