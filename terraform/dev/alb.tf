@@ -1,7 +1,7 @@
 resource "aws_security_group" "alb_sg" {
   name        = "alb-https-sg"
   description = "Allow HTTPS inbound traffic"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = data.aws_vpc.main.id
 
   ingress {
     from_port   = 443
@@ -52,7 +52,7 @@ resource "aws_lb" "default_alb" {
 }
 
 resource "aws_lb_listener" "https_listener" {
-  load_balancer_arn = aws_lb.app_alb.arn
+  load_balancer_arn = aws_lb.default_alb.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
