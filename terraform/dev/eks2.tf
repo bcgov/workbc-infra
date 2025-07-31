@@ -5,7 +5,7 @@ data "aws_ami" "eks_worker_ami" {
 
   filter {
     name   = "name"
-    values = ["amazon-eks-node-1.33-v*"] # match your EKS version
+    values = ["amazon-eks-node-al2023-x86_64-standard-1.33-v*"] # match your EKS version
   }
 
   filter {
