@@ -135,10 +135,10 @@ resource "aws_eks_node_group" "eks-ng" {
   node_role_arn   = aws_iam_role.eks-ng-role.arn
   subnet_ids      = data.aws_subnets.app.ids
   
-  launch_template {
-    id      = aws_launch_template.eks_nodes_lt.id
-    version = "$Latest"
-  }
+#  launch_template {
+#    id      = aws_launch_template.eks_nodes_lt.id
+#    version = "$Latest"
+#  }
 
   scaling_config {
     desired_size = 2
@@ -245,4 +245,17 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
       ]
   }
   EOF
+}
+
+data "aws_security_group" "eks_node_sg" {
+  id = aws_eks_cluster.workbc-cluster.vpc_config[0].cluster_security_group_id
+}
+
+resource "aws_security_group_rule" "allow_alb" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = data.aws_security_group.eks_node_sg.id
+  source_security_group_id = aws_security_group.alb_sg.id
 }
