@@ -32,7 +32,7 @@ resource "aws_alb_target_group" "cer" {
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "5"
-    path                = "/"
+    path                = "/index.html"
     unhealthy_threshold = "2"
   }
     
