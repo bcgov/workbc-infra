@@ -5,5 +5,5 @@ locals {
   availability_zones = ["A", "B"]
   app_subnet_names   = [for az in local.availability_zones : "${local.environment}-App-${az}"]
   data_subnet_names   = [for az in local.availability_zones : "${local.environment}-Data-${az}"]
-  web_subnet_names   = [for az in local.availability_zones : "${local.environment}-Web-${az}"]
+  web_subnet_names   = [for az in local.availability_zones : "${local.environment}-Web-MainTgwAttach-${az}"]
 }
