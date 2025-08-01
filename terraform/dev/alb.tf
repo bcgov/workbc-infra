@@ -49,6 +49,10 @@ resource "aws_lb" "default_alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = data.aws_subnets.app.ids
+
+  tags = {
+    Public = "True"
+  }
 }
 
 resource "aws_lb_listener" "https_listener" {
