@@ -48,7 +48,7 @@ resource "aws_lb" "default_alb" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = data.aws_subnets.app.ids
+  subnets            = data.aws_subnets.web.ids
 
   tags = {
     Public = "True"
