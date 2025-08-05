@@ -3,6 +3,8 @@ name: 'Deploy Dev'
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - 'terraform/dev/**'
 
 env:
   TF_VERSION: 1.12.2
