@@ -1,0 +1,54 @@
+name: 'Deploy Prod'
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'terraform/prod/**'
+
+env:
+  TF_VERSION: 1.12.2
+  TG_VERSION: 0.83.2
+  TG_SRC_PATH: terraform
+  TFC_WORKSPACE: prod
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless of the GitHub Actions runner OS
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN_TO_USE_PROD }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure Terragrunt
+        uses: autero1/action-terragrunt@v3
+        with:
+          terragrunt-version: ${{ env.TG_VERSION }}
+
+      - name: Terragrunt Apply
+        working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
+        env:
+          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+        run: terragrunt apply --all --non-interactive
