@@ -1,8 +1,4 @@
-# cloudfront.tf
-#resource "random_integer" "cf_origin_id" {
-#  min = 1
-#  max = 100
-#}
+# cloudfront2.tf - CDQ
 
 resource "aws_cloudfront_distribution" "workbc-cdq" {
 
@@ -29,7 +25,7 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 
   enabled         = true
   is_ipv6_enabled = true
-  comment         = "Career Education Resources"
+  comment         = "Career Discovery Quizzes"
 
   default_cache_behavior {
     allowed_methods = [
@@ -79,9 +75,4 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
     ssl_support_method = "sni-only"
   }
 }
-
-#output "cloudfront_url" {
-#  value = "https://${aws_cloudfront_distribution.workbc-cdq[0].domain_name}"
-
-#}
 
