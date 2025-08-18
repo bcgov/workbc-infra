@@ -1,8 +1,8 @@
 # cloudfront.tf
-resource "random_integer" "cf_origin_id" {
-  min = 1
-  max = 100
-}
+#resource "random_integer" "cf_origin_id" {
+#  min = 1
+#  max = 100
+#}
 
 resource "aws_cloudfront_distribution" "workbc-cdq" {
 
