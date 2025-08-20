@@ -1,12 +1,5 @@
 # rds for CDQ
 
-#resource "aws_db_subnet_group" "data_subnet" {
-#  name                   = "data-subnet"
-#  subnet_ids             = data.aws_subnets.data.ids
-#
-#  tags = var.common_tags
-#}
-
 resource "aws_rds_cluster" "postgres-cdq" {
   cluster_identifier      = "cdq-postgres-cluster"
   engine                  = "aurora-postgresql"
