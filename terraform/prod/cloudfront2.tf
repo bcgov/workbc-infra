@@ -1,10 +1,6 @@
-# cloudfront.tf
-resource "random_integer" "cf_origin_id" {
-  min = 1
-  max = 100
-}
+# cloudfront2.tf for CDQ
 
-resource "aws_cloudfront_distribution" "workbc-cer" {
+resource "aws_cloudfront_distribution" "workbc-cdq" {
 
   count = var.cloudfront ? 1 : 0
 
@@ -17,19 +13,19 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
       "TLSv1.2"]
     }
 
-    domain_name = "workbc-cer.a55eb5-prod.stratus.cloud.gov.bc.ca"
+    domain_name = "workbc-cdq.a55eb5-prod.stratus.cloud.gov.bc.ca"
     origin_id   = random_integer.cf_origin_id.result
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  value = "careereducation.workbc.ca"
+	  value = "careerdiscoveryquizzes.workbc.ca"
 	}
 	
   }
 
   enabled         = true
   is_ipv6_enabled = true
-  comment         = "Career Education Resources"
+  comment         = "Career Discovery Quizzes"
 
   default_cache_behavior {
     allowed_methods = [
@@ -72,7 +68,7 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
 
   tags = var.common_tags
   
-  aliases = ["careereducation.workbc.ca"]
+  aliases = ["careerdiscoveryquizzes.workbc.ca"]
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/34b94c2f-2826-4ec6-8883-423ecc3364dd"
@@ -80,8 +76,7 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
   }
 }
 
-output "cloudfront_url" {
-  value = "https://${aws_cloudfront_distribution.workbc-cer[0].domain_name}"
-
-}
+#output "cloudfront_url" {
+#  value = "https://${aws_cloudfront_distribution.workbc-cer[0].domain_name}"
+#}
 
