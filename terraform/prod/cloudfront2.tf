@@ -59,12 +59,12 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 
   price_class = "PriceClass_100"
 
-#  restrictions {
-#    geo_restriction {
-#      restriction_type = "whitelist"
-#      locations = ["CA"]
-#    }
-#  }
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+      locations        = []
+    }
+  }
 
   tags = var.common_tags
   
