@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "data_subnet" {
 resource "aws_rds_cluster" "postgres-workbc" {
   cluster_identifier      = "workbc-postgres-cluster"
   engine                  = "aurora-postgresql"
-  engine_version          = "16.6"
+  engine_version          = "16.8"
   master_username         = local.db_creds.adm_username
   master_password         = local.db_creds.adm_password
   backup_retention_period = 5

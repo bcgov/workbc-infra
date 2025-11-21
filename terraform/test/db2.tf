@@ -3,7 +3,7 @@
 resource "aws_rds_cluster" "postgres-cdq" {
   cluster_identifier      = "cdq-postgres-cluster"
   engine                  = "aurora-postgresql"
-  engine_version          = "16.6"
+  engine_version          = "16.8"
   master_username         = local.db_creds2.adm_username
   master_password         = local.db_creds2.adm_password
   backup_retention_period = 5
