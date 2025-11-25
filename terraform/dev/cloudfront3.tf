@@ -80,14 +80,14 @@ resource "aws_cloudfront_distribution" "workbc-main" {
   
    origin {
 #	domain_name = aws_s3_bucket.workbc_s3.bucket_regional_domain_name
-	domain_name = workbc-bucket.s3.ca-central-1.amazonaws.com
+	domain_name = "workbc-bucket.s3.ca-central-1.amazonaws.com"
 	origin_id = "SDPR-Contents"
 	origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
 	origin {
 #	  domain_name = aws_s3_bucket.workbc_s3.bucket_regional_domain_name
-	  domain_name = workbc-bucket.s3.ca-central-1.amazonaws.com
+	  domain_name = "workbc-bucket.s3.ca-central-1.amazonaws.com"
 	  origin_id = "Maintenance-Window"
 	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 	}
