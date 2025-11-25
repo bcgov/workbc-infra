@@ -204,7 +204,14 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing3" {
       values = ["workbc.*"]
     }
   }
-    
+
+  condition {
+    http_header {
+      http_header_name = "WorkBC-Source"
+      values = [var.source_token]
+    }
+  }  
 }
+
 
 

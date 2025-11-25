@@ -30,4 +30,9 @@ variable "cloudfront" {
   type        = bool
 }
 
+variable "source_token" {
+  type      = string
+  sensitive = true
+}
+
 

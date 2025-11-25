@@ -51,4 +51,5 @@ jobs:
         working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
         env:
           LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
         run: terragrunt apply --all --non-interactive
