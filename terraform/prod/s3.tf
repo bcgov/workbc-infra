@@ -2,10 +2,10 @@ resource "aws_s3_bucket" "workbc_s3" {
   bucket = "workbc-bucket"
 }
 
-resource "aws_s3_bucket_acl" "workbc_s3_acl" {
-  bucket = aws_s3_bucket.workbc_s3.id
-  acl    = "private"
-}
+#resource "aws_s3_bucket_acl" "workbc_s3_acl" {
+#  bucket = aws_s3_bucket.workbc_s3.id
+#  acl    = "private"
+#}
 
 resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
   bucket = aws_s3_bucket.workbc_s3.id
