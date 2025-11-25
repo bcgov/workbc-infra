@@ -59,3 +59,27 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4a" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
+
+resource "aws_security_group" "allow_redis" {
+  name        = "allow_redis"
+  description = "Allow Redis inbound traffic and all outbound traffic"
+  vpc_id      = data.aws_vpc.main.id
+
+  tags = {
+    Name = "allow_redis"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_redis_ipv4" {
+  security_group_id = aws_security_group.allow_redis.id
+  cidr_ipv4         = data.aws_vpc.main.cidr_block
+  from_port         = 6379
+  ip_protocol       = "tcp"
+  to_port           = 6379
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4b" {
+  security_group_id = aws_security_group.allow_redis.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}
