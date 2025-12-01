@@ -53,7 +53,7 @@ resource "aws_rds_cluster_instance" "postgres-jobboard" {
 
 resource "aws_rds_cluster_parameter_group" "jobboard_pg" {
   name        = "jobboard-pg"
-  family      = "aurora-postgresql17"
+  family      = "aurora-postgresql16"
   description = "JobBoard cluster parameter group"
 
   parameter {
