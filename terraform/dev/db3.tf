@@ -59,10 +59,12 @@ resource "aws_rds_cluster_parameter_group" "jobboard_pg" {
   parameter {
     name  = "cron.database_name"
     value = "jobboard"
+    apply_method = "pending-reboot"
   }
 
   parameter {
     name  = "shared_preload_libraries"
     value = "pg_stat_statements,pg_cron"
+    apply_method = "pending-reboot"
   }
 }
