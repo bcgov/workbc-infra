@@ -1,4 +1,5 @@
 data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
 
 resource "aws_iam_service_linked_role" "es" {
 	aws_service_name = "es.amazonaws.com"
@@ -35,7 +36,7 @@ resource "aws_elasticsearch_domain" "workbc-jb-cluster" {
             "Action": "es:*",
             "Principal": "*",
             "Effect": "Allow",
-            "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/workbc-jb-cluster/*"
+            "Resource": "arn:aws:es:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:domain/workbc-jb-cluster/*"
         }
     ]
 }
