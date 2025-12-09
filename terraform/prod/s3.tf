@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "allow_access_from_cloudfront" {
 	  test = "StringEquals"
 	  variable = "AWS:SourceArn"
 	  #values = ["${aws_cloudfront_distribution.workbc[0].arn}"]
-	  values = ["arn:aws:cloudfront::396067939651:distribution/E1GDYI52ISK5MS", "arn:aws:cloudfront::318574063652:distribution/E2Y9BDYHIX4JX3"]
+	  values = ["${aws_cloudfront_distribution.workbc-main[0].arn}", "arn:aws:cloudfront::396067939651:distribution/E1GDYI52ISK5MS", "arn:aws:cloudfront::318574063652:distribution/E2Y9BDYHIX4JX3"]
 	}
   }
 
