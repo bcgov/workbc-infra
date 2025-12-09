@@ -124,11 +124,11 @@ resource "aws_cloudfront_distribution" "workbc-main" {
 	
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
-		#This cloudfront function redirects aws.workbc.ca to dev.workbc.ca -- 301
-#    function_association {
-#      event_type   = "viewer-request"
-#      function_arn = "arn:aws:cloudfront::873424993519:function/pearldevcfredirect"
-#    }
+	#This cloudfront function redirects workbc.ca to www.workbc.ca -- 301
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.redirectapex2www.arn
+    }
   }
   
   ordered_cache_behavior {
@@ -190,7 +190,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
 
   tags = var.common_tags
   
-  aliases = ["www.workbc.ca"]
+  aliases = ["www.workbc.ca", "workbc.ca"]
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/34b94c2f-2826-4ec6-8883-423ecc3364dd"
@@ -200,3 +200,12 @@ resource "aws_cloudfront_distribution" "workbc-main" {
   depends_on = [aws_cloudfront_cache_policy.custom, aws_cloudfront_origin_request_policy.custom]
 }
 
+resource "aws_cloudfront_function" "redirectapex2www" {
+  name    = "redirectapex2www"
+  runtime = "cloudfront-js-1.0"
+
+  # JS file
+  code = file("${path.module}/cf-function.js")
+
+  publish = true
+}
