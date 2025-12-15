@@ -2,12 +2,12 @@ resource "aws_s3_bucket" "workbc_s32" {
   bucket = "workbc-pdf-link-check-bucket"
 }
 
-resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
+resource "aws_s3_bucket_policy" "allow_access_from_cloudfront2" {
   bucket = aws_s3_bucket.workbc_s32.id
-  policy = data.aws_iam_policy_document.allow_access_from_cloudfront.json
+  policy = data.aws_iam_policy_document.allow_access_from_cloudfront2.json
 }
 
-data "aws_iam_policy_document" "allow_access_from_cloudfront" {
+data "aws_iam_policy_document" "allow_access_from_cloudfront2" {
   statement {
   
     sid = "AllowCloudFrontServicePrincipal"
