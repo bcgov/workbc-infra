@@ -125,11 +125,6 @@ resource "aws_cloudfront_distribution" "workbc-main" {
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
 	
-	#This cloudfront function redirects aws.workbc.ca to dev.workbc.ca -- 301
-#    function_association {
-#      event_type   = "viewer-request"
-#      function_arn = "arn:aws:cloudfront::873424993519:function/pearldevcfredirect"
-#    }
   }
 
   ordered_cache_behavior {
