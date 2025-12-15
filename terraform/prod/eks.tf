@@ -241,7 +241,26 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
 		  "ses:ListIdentities"
               ],
               "Resource": "*"
-          }
+          },
+		  {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+		"s3:GetBucketLocation"
+      ],
+      "Resource": "${aws_s3_bucket.workbc_s32.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+	    "s3:GetObjectAttributes",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:ListMultipartUploadParts",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": "${aws_s3_bucket.workbc_s32.arn}/*"
+    }
       ]
   }
   EOF
