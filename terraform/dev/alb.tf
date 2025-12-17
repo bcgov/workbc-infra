@@ -221,7 +221,7 @@ resource "aws_alb_target_group" "jb" {
 
 resource "aws_lb_listener_rule" "host_based_weighted_routing4" {
   listener_arn = aws_lb_listener.https_listener.arn
-  priority     = 130
+  priority     = 60
 
   action {
     type             = "forward"
@@ -230,7 +230,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing4" {
 
   condition {
     host_header {
-      values = ["jb.*"]
+      values = ["workbc-jb.*"]
     }
   }
 }
@@ -263,7 +263,7 @@ resource "aws_alb_target_group" "jbadm" {
 
 resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
   listener_arn = aws_lb_listener.https_listener.arn
-  priority     = 140
+  priority     = 50
 
   action {
     type             = "forward"
@@ -272,7 +272,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
 
   condition {
     host_header {
-      values = ["jbadm.*"]
+      values = ["workbc-jb-adm.*"]
     }
   }
 }
