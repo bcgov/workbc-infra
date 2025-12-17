@@ -236,7 +236,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing4" {
 }
 
 resource "aws_alb_target_group" "jbadm" {
-  name                 = "jbadm-target-group"
+  name                 = "jb-adm-target-group"
   port                 = 8080
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.main.id
@@ -276,3 +276,4 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
     }
   }
 }
+
