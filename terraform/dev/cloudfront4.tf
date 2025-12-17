@@ -1,10 +1,5 @@
 # cloudfront for JobBoard
 
-resource "random_integer" "cf_origin_id" {
-  min = 1
-  max = 100
-}
-
 resource "aws_cloudfront_distribution" "workbc-jb" {
 
   count = var.cloudfront ? 1 : 0
