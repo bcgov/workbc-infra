@@ -236,12 +236,21 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
           {
               "Effect": "Allow",
               "Action": [
-                  "ses:SendEmail",
-		  "ses:SendRawEmail",
-		  "ses:ListIdentities"
+                "ses:SendEmail",
+		  		"ses:SendRawEmail",
+		  		"ses:ListIdentities"
               ],
               "Resource": "*"
           },
+		  {
+			"Effect": "Allow",
+      		"Action": [
+        		"es:DescribeElasticsearchDomain",
+        		"es:DescribeElasticsearchDomains",
+        		"es:DescribeDomain"
+      		  ],
+      		  "Resource": "${aws_elasticsearch_domain.workbc-jb-cluster.arn}"
+		  },
 		  {
 			  "Effect": "Allow",
 		      "Action": [
