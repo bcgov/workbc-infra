@@ -241,26 +241,7 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
 		  		"ses:ListIdentities"
               ],
               "Resource": "*"
-          },
-		  {
-			"Effect": "Allow",
-      		"Action": [
-        		"es:DescribeElasticsearchDomain",
-        		"es:DescribeElasticsearchDomains",
-        		"es:DescribeDomain"
-      		  ],
-      		  "Resource": "${aws_elasticsearch_domain.workbc-jb-cluster.arn}"
-		  },
-		  {
-			  "Effect": "Allow",
-		      "Action": [
-		        "es:ESHttpGet",
-		        "es:ESHttpPost",
-		        "es:ESHttpPut",
-		        "es:ESHttpDelete"
-		      ],
-      		  "Resource": "${aws_elasticsearch_domain.workbc-jb-cluster.arn}/*"
-		  }
+          }
       ]
   }
   EOF
