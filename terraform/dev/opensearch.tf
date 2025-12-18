@@ -8,7 +8,7 @@ resource "aws_iam_service_linked_role" "es" {
 
 resource "aws_elasticsearch_domain" "workbc-jb-cluster" {
 	domain_name	= "workbc-jb-cluster"
-	elasticsearch_version = "OpenSearch_3.3"
+	elasticsearch_version = "OpenSearch_1.3"
 	
 	cluster_config {
 		instance_count = 1
