@@ -55,7 +55,7 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
     max_ttl                = 31536000
 	
     # SimpleCORS
-    response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cors_api.id
   }
 
   price_class = "PriceClass_100"
@@ -75,5 +75,27 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
     acm_certificate_arn = "arn:aws:acm:us-east-1:396067939651:certificate/8422cb87-5c47-4dcf-86b3-04a93695fbca"
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
+  }
+}
+
+resource "aws_cloudfront_response_headers_policy" "cors_api" {
+  name = "cors-api-jobboard"
+
+  cors_config {
+    access_control_allow_credentials = true
+
+    access_control_allow_origins {
+      items = ["https://dev.workbc.ca"]
+    }
+
+    access_control_allow_methods {
+      items = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+    }
+
+    access_control_allow_headers {
+      items = ["*"]
+    }
+
+    origin_override = true
   }
 }
