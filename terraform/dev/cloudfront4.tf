@@ -93,7 +93,7 @@ resource "aws_cloudfront_response_headers_policy" "cors_api" {
     }
 
     access_control_allow_headers {
-      items = ["Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"]
+      items = ["*"]
     }
 
     origin_override = true
