@@ -93,9 +93,17 @@ resource "aws_cloudfront_response_headers_policy" "cors_api" {
     }
 
     access_control_allow_headers {
-      items = ["*"]
+      items = [
+	  "Content-Type",
+	  "Authorization",
+	  "Cache-Control",
+	  "Expires",
+	  "Pragma",
+	  "If-Modified-Since"
+	  ]
     }
 
     origin_override = true
+	access_control_max_age_sec = "86400"
   }
 }
