@@ -13,12 +13,12 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
       "TLSv1.2"]
     }
 
-    domain_name = "workbc-jb.a55eb5-dev.stratus.cloud.gov.bc.ca"
+    domain_name = "workbc-jb.a55eb5-test.stratus.cloud.gov.bc.ca"
     origin_id   = random_integer.cf_origin_id.result
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  value = "dev-api-jobboard.workbc.ca"
+	  value = "test-api-jobboard.workbc.ca"
 	}
 	
   }
@@ -69,10 +69,10 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
 
   tags = var.common_tags
   
-  aliases = ["dev-api-jobboard.workbc.ca"]
+  aliases = ["test-api-jobboard.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:396067939651:certificate/8422cb87-5c47-4dcf-86b3-04a93695fbca"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/ff1d0af0-b95d-4e2c-80c9-c634ae2a0f51"
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
   }
@@ -85,7 +85,7 @@ resource "aws_cloudfront_response_headers_policy" "cors_api" {
     access_control_allow_credentials = true
 
     access_control_allow_origins {
-      items = ["https://dev.workbc.ca", "http://localhost", "http://localhost:8080", "http://workbc.docker.localhost:8000"]
+      items = ["https://test.workbc.ca"]
     }
 
     access_control_allow_methods {
