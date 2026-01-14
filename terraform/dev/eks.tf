@@ -246,7 +246,12 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
 		  		"ses:ListIdentities"
               ],
               "Resource": "*"
-          }
+          },
+		  {
+			  "Effect": "Allow",
+			  "Action": "secretsmanager:GetSecretValue",
+			  "Resource": "arn:aws:secretsmanager:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:secret:*"
+		  }
       ]
   }
   EOF
