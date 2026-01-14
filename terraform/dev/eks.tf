@@ -101,10 +101,11 @@ resource "aws_eks_addon" "secrets-manager-addon" {
   addon_name   = "aws-secrets-store-csi-driver-provider"
 }
 
-resource "aws_eks_addon" "secrets-store-csi-driver" {
-  cluster_name = aws_eks_cluster.workbc-cluster.name
-  addon_name   = "secrets-store-csi-driver"
-}
+# Not supported in v1.33
+#resource "aws_eks_addon" "secrets-store-csi-driver" {
+#  cluster_name = aws_eks_cluster.workbc-cluster.name
+#  addon_name   = "secrets-store-csi-driver"
+#}
 
 
 #Node group role
