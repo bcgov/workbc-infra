@@ -249,8 +249,18 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
           },
 		  {
 			  "Effect": "Allow",
-			  "Action": "secretsmanager:GetSecretValue",
+			  "Action": [
+				  "secretsmanager:GetSecretValue",
+				  "secretsmanager:DescribeSecret"
+			  ]
 			  "Resource": "arn:aws:secretsmanager:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:secret:*"
+		  },
+		  {
+			  "Effect": "Allow",
+			  "Action": [
+				  "kms:Decrypt"
+			  ]
+			  "Resource": "arn:aws:kms:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:key/*"
 		  }
       ]
   }
