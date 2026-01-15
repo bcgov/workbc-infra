@@ -1,6 +1,6 @@
-# cloudfront for JobBoard
+# cloudfront for JobBoard Admin
 
-resource "aws_cloudfront_distribution" "workbc-jb" {
+resource "aws_cloudfront_distribution" "workbc-jb-adm" {
 
   count = var.cloudfront ? 1 : 0
 
@@ -13,19 +13,19 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
       "TLSv1.2"]
     }
 
-    domain_name = "workbc-jb.a55eb5-prod.stratus.cloud.gov.bc.ca"
+    domain_name = "workbc-jb-adm.a55eb5-prod.stratus.cloud.gov.bc.ca"
     origin_id   = random_integer.cf_origin_id.result
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  value = "api-jobboard.workbc.ca"
+	  value = "admin-jobboard.workbc.ca"
 	}
 	
   }
 
   enabled         = true
   is_ipv6_enabled = true
-  comment         = "JobBoard API"
+  comment         = "JobBoard Admin"
 
   default_cache_behavior {
     allowed_methods = [
@@ -42,7 +42,6 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
 
     forwarded_values {
       query_string = true
-      headers = ["Origin", "Authorization"]
 
       cookies {
         forward = "all"
@@ -54,8 +53,8 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
     default_ttl            = 86400
     max_ttl                = 31536000
 	
-    # Custom CORS
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.cors_api.id
+    # SimpleCORS
+    response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
   }
 
   price_class = "PriceClass_100"
@@ -63,13 +62,12 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
   restrictions {
     geo_restriction {
       restriction_type = "none"
-      locations        = []
     }
   }
 
   tags = var.common_tags
   
-  aliases = ["api-jobboard.workbc.ca"]
+  aliases = ["admin-jobboard.workbc.ca"]
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/34b94c2f-2826-4ec6-8883-423ecc3364dd"
@@ -78,32 +76,3 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
   }
 }
 
-resource "aws_cloudfront_response_headers_policy" "cors_api" {
-  name = "cors-api-jobboard"
-
-  cors_config {
-    access_control_allow_credentials = true
-
-    access_control_allow_origins {
-      items = ["https://www.workbc.ca", "https://workbc.ca"]
-    }
-
-    access_control_allow_methods {
-      items = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-    }
-
-    access_control_allow_headers {
-      items = [
-	  "Content-Type",
-	  "Authorization",
-	  "Cache-Control",
-	  "Expires",
-	  "Pragma",
-	  "If-Modified-Since"
-	  ]
-    }
-
-    origin_override = true
-	access_control_max_age_sec = "86400"
-  }
-}
