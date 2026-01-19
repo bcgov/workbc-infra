@@ -12,11 +12,12 @@ resource "aws_rds_cluster" "postgres-cdq" {
   kms_key_id              = aws_kms_key.workbc-kms-key.arn
   storage_encrypted       = true
   vpc_security_group_ids  = [data.aws_security_group.data.id, aws_security_group.allow_postgres.id]
+  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.cdq_pg.name
   skip_final_snapshot     = true
   final_snapshot_identifier = "cdq-finalsnapshot"
   
   serverlessv2_scaling_configuration {
-    max_capacity = 2.0
+    max_capacity = 4.0
     min_capacity = 1.0
   }
 
@@ -39,4 +40,16 @@ resource "aws_rds_cluster_instance" "postgres-cdq" {
   instance_class     = "db.serverless"
   engine             = aws_rds_cluster.postgres-cdq.engine
   engine_version     = aws_rds_cluster.postgres-cdq.engine_version
+}
+
+resource "aws_rds_cluster_parameter_group" "cdq_pg" {
+  name        = "cdq-pg"
+  family      = "aurora-postgresql16"
+  description = "CDQ cluster parameter group"
+
+  parameter {
+    name  = "random_page_cost"
+    value = "1.1"
+    apply_method = "pending-reboot"
+  }
 }
