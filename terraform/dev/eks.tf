@@ -139,17 +139,14 @@ resource "aws_eks_node_group" "eks-ng" {
   node_group_name = "eks-ng"
   node_role_arn   = aws_iam_role.eks-ng-role.arn
   subnet_ids      = data.aws_subnets.app.ids
-  
-#  launch_template {
-#    id      = aws_launch_template.eks_nodes_lt.id
-#    version = "$Latest"
-#  }
 
   scaling_config {
     desired_size = 3
     max_size     = 10
     min_size     = 1
   }
+
+  instance_types = ["t3.large"]
 
   update_config {
     max_unavailable = 1
