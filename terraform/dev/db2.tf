@@ -4,8 +4,8 @@ resource "aws_rds_cluster" "postgres-cdq" {
   cluster_identifier      = "cdq-postgres-cluster"
   engine                  = "aurora-postgresql"
   engine_version          = "16.8"
-  master_username         = local.db_creds2.adm_username
-  master_password         = local.db_creds2.adm_password
+  master_username         = local.db_creds2.POSTGRES_ADM_USER
+  master_password         = local.db_creds2.POSTGRES_ADM_PWD
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
   db_subnet_group_name    = aws_db_subnet_group.data_subnet.name
