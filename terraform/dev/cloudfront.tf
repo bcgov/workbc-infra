@@ -82,6 +82,6 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
 
 #output "cloudfront_url" {
 #  value = "https://${aws_cloudfront_distribution.workbc-cer[0].domain_name}"
-#
+
 #}
 
