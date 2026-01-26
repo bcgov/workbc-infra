@@ -37,15 +37,15 @@ resource "aws_eks_addon" "coredns-addon2" {
 
 
 
-resource "aws_eks_addon" "aws-efs-csi-driver2" {
-  cluster_name = aws_eks_cluster.workbc-cluster2.name
-  addon_name   = "aws-efs-csi-driver"
+#resource "aws_eks_addon" "aws-efs-csi-driver2" {
+#  cluster_name = aws_eks_cluster.workbc-cluster2.name
+#  addon_name   = "aws-efs-csi-driver"
 
-  pod_identity_association {
-    role_arn = aws_iam_role.efs-csi-role.arn
-    service_account = "efs-csi-controller-sa"
-  }
-}
+#  pod_identity_association {
+#    role_arn = aws_iam_role.efs-csi-role.arn
+#    service_account = "efs-csi-controller-sa"
+#  }
+#}
 
 #resource "aws_eks_addon" "secrets-manager-addon2" {
 #  cluster_name = aws_eks_cluster.workbc-cluster2.name
