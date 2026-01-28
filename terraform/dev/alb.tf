@@ -23,7 +23,8 @@ resource "aws_alb_target_group" "cer" {
   port                 = 80
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.main.id
-  target_type          = "ip"
+  target_type          = "instance"
+#  target_type          = "ip"
   deregistration_delay = 30
 
   health_check {
@@ -276,4 +277,5 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
     }
   }
 }
+
 
