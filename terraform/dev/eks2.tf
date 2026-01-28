@@ -88,7 +88,7 @@ data "aws_security_group" "eks_node_sg2" {
 resource "aws_security_group_rule" "allow_alb2" {
   type                     = "ingress"
   from_port                = 80
-  to_port                  = 80
+  to_port                  = 32767
   protocol                 = "tcp"
   security_group_id        = data.aws_security_group.eks_node_sg2.id
   source_security_group_id = aws_security_group.alb_sg.id
