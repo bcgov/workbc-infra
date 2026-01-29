@@ -100,6 +100,7 @@ resource "aws_security_group_rule" "allow_node_scrape" {
   to_port           = 10250
   protocol          = "tcp"
   security_group_id = data.aws_security_group.eks_node_sg2.id
-  source_security_group_id = data.aws_security_group.eks_node_sg2.id
-  description              = "Allow kubelet scraping from nodes/pods"
+  cidr_ipv4         = "0.0.0.0/0"
+#  source_security_group_id = data.aws_security_group.eks_node_sg2.id
+#  description              = "Allow kubelet scraping from nodes/pods"
 }
