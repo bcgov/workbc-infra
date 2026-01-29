@@ -93,3 +93,13 @@ resource "aws_security_group_rule" "allow_alb2" {
   security_group_id        = data.aws_security_group.eks_node_sg2.id
   source_security_group_id = aws_security_group.alb_sg.id
 }
+
+resource "aws_security_group_rule" "allow_node_scrape" {
+  type              = "ingress"
+  from_port         = 10250
+  to_port           = 10250
+  protocol          = "tcp"
+  security_group_id = data.aws_security_group.eks_node_sg2.id
+  source_security_group_id = data.aws_security_group.eks_node_sg2.id
+  description              = "Allow kubelet scraping from nodes/pods"
+}
