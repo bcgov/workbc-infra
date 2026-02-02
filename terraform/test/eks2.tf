@@ -54,7 +54,6 @@ resource "aws_eks_addon" "secrets-manager-addon2" {
 }
 
 #Node group
-/*
 resource "aws_eks_node_group" "eks-ng2" {
   cluster_name    = aws_eks_cluster.workbc-cluster2.name
   node_group_name = "eks-ng2"
@@ -80,7 +79,7 @@ resource "aws_eks_node_group" "eks-ng2" {
     aws_iam_role_policy_attachment.ng-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.ng-AmazonEC2ContainerRegistryReadOnly,
   ]
-}*/
+}
 
 
 data "aws_security_group" "eks_node_sg2" {
