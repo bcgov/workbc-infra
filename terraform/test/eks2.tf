@@ -1,7 +1,7 @@
 #EKS cluster
 resource "aws_eks_cluster" "workbc-cluster2" {
   name = "workbc-cluster2"
-  version = "1.35"
+  #version = "1.35"
   access_config {
     authentication_mode = "API_AND_CONFIG_MAP"
   }
