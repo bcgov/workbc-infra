@@ -268,7 +268,7 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
   EOF
 }
 
-resource "aws_security_group_rule" "allow_alb2" {
+resource "aws_security_group_rule" "allow_alb3" {
   type                     = "ingress"
   from_port                = 8080
   to_port                  = 8081
