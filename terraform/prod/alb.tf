@@ -125,10 +125,10 @@ resource "aws_security_group_rule" "allow_alb" {
 
 resource "aws_alb_target_group" "cdq" {
   name                 = "cdq-target-group"
-  port                 = 80
+  port                 = 30082
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.main.id
-  target_type          = "ip"
+  target_type          = "instance"
   deregistration_delay = 30
 
   health_check {
@@ -296,6 +296,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
     }
   }
 }
+
 
 
 
