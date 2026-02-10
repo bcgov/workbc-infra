@@ -215,10 +215,10 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing3" {
 
 resource "aws_alb_target_group" "jb" {
   name                 = "jb-target-group"
-  port                 = 8081
+  port                 = 30081
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.main.id
-  target_type          = "ip"
+  target_type          = "instance"
   deregistration_delay = 30
 
   health_check {
@@ -229,7 +229,7 @@ resource "aws_alb_target_group" "jb" {
     timeout             = "5"
     path                = "/health"
     unhealthy_threshold = "2"
-    port                = "8081"
+#    port                = "8081"
   }
     
   lifecycle {
@@ -257,10 +257,10 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing4" {
 
 resource "aws_alb_target_group" "jbadm" {
   name                 = "jb-adm-target-group"
-  port                 = 8080
+  port                 = 30080
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.main.id
-  target_type          = "ip"
+  target_type          = "instance"
   deregistration_delay = 30
 
   health_check {
@@ -271,7 +271,7 @@ resource "aws_alb_target_group" "jbadm" {
     timeout             = "5"
     path                = "/health"
     unhealthy_threshold = "2"
-    port                = "8080"
+#    port                = "8080"
   }
     
   lifecycle {
@@ -296,6 +296,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
     }
   }
 }
+
 
 
 
