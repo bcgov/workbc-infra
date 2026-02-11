@@ -23,7 +23,7 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eks-cluster-role.name
 }
-
+/*
 #EKS cluster
 resource "aws_eks_cluster" "workbc-cluster" {
   name = "workbc-cluster"
@@ -59,7 +59,7 @@ resource "aws_eks_addon" "pod-identity-addon" {
 resource "aws_eks_addon" "coredns-addon" {
   cluster_name = aws_eks_cluster.workbc-cluster.name
   addon_name   = "coredns"
-}
+}*/
 
 #EFS CSI role
 resource "aws_iam_role" "efs-csi-role" {
@@ -85,7 +85,7 @@ resource "aws_iam_role_policy_attachment" "ec-AmazonEFSCSIDriverPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
   role       = aws_iam_role.efs-csi-role.name
 }
-
+/*
 resource "aws_eks_addon" "aws-efs-csi-driver" {
   cluster_name = aws_eks_cluster.workbc-cluster.name
   addon_name   = "aws-efs-csi-driver"
@@ -99,7 +99,7 @@ resource "aws_eks_addon" "aws-efs-csi-driver" {
 resource "aws_eks_addon" "secrets-manager-addon" {
   cluster_name = aws_eks_cluster.workbc-cluster.name
   addon_name   = "aws-secrets-store-csi-driver-provider"
-}
+}*/
 
 #Node group role
 resource "aws_iam_role" "eks-ng-role" {
@@ -132,7 +132,7 @@ resource "aws_iam_role_policy_attachment" "ng-AmazonEC2ContainerRegistryReadOnly
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks-ng-role.name
 }
-
+/*
 #Node group
 resource "aws_eks_node_group" "eks-ng" {
   cluster_name    = aws_eks_cluster.workbc-cluster.name
@@ -160,7 +160,7 @@ resource "aws_eks_node_group" "eks-ng" {
     aws_iam_role_policy_attachment.ng-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
-
+*/
 
 #Cluster auto scaler role
 resource "aws_iam_role" "cluster_auto_scaler_role" {
@@ -263,7 +263,7 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
   }
   EOF
 }
-
+/*
 data "aws_security_group" "eks_node_sg" {
   id = aws_eks_cluster.workbc-cluster.vpc_config[0].cluster_security_group_id
 }
@@ -275,4 +275,4 @@ resource "aws_security_group_rule" "allow_alb" {
   protocol                 = "tcp"
   security_group_id        = data.aws_security_group.eks_node_sg.id
   source_security_group_id = aws_security_group.alb_sg.id
-}
+}*/
