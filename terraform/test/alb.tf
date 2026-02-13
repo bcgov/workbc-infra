@@ -112,7 +112,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing" {
 /*
 data "aws_security_group" "eks_node_sg" {
   id = aws_eks_cluster.workbc-cluster.vpc_config[0].cluster_security_group_id
-}*/
+}
 
 resource "aws_security_group_rule" "allow_alb" {
   type                     = "ingress"
@@ -121,7 +121,7 @@ resource "aws_security_group_rule" "allow_alb" {
   protocol                 = "tcp"
   security_group_id        = data.aws_security_group.eks_node_sg.id
   source_security_group_id = aws_security_group.alb_sg.id
-}
+}*/
 
 resource "aws_alb_target_group" "cdq" {
   name                 = "cdq-target-group"
@@ -291,6 +291,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing5" {
   }
 
 }
+
 
 
 
