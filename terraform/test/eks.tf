@@ -23,43 +23,7 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eks-cluster-role.name
 }
-/*
-#EKS cluster
-resource "aws_eks_cluster" "workbc-cluster" {
-  name = "workbc-cluster"
-  access_config {
-    authentication_mode = "API_AND_CONFIG_MAP"
-  }
-  role_arn = aws_iam_role.eks-cluster-role.arn
-  vpc_config {
-    subnet_ids = data.aws_subnets.app.ids
-  }
-  depends_on = [
-    aws_iam_role_policy_attachment.eks-cluster-policy,
-    aws_iam_role.eks-cluster-role,
-  ]
-}
 
-#EKS cluster addons
-resource "aws_eks_addon" "vpc-cni-addon" {
-  cluster_name = aws_eks_cluster.workbc-cluster.name
-  addon_name   = "vpc-cni"
-}
-
-resource "aws_eks_addon" "kube-proxy-addon" {
-  cluster_name = aws_eks_cluster.workbc-cluster.name
-  addon_name   = "kube-proxy"
-}
-
-resource "aws_eks_addon" "pod-identity-addon" {
-  cluster_name = aws_eks_cluster.workbc-cluster.name
-  addon_name   = "eks-pod-identity-agent"
-}
-
-resource "aws_eks_addon" "coredns-addon" {
-  cluster_name = aws_eks_cluster.workbc-cluster.name
-  addon_name   = "coredns"
-}*/
 
 #EFS CSI role
 resource "aws_iam_role" "efs-csi-role" {
@@ -85,16 +49,7 @@ resource "aws_iam_role_policy_attachment" "ec-AmazonEFSCSIDriverPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
   role       = aws_iam_role.efs-csi-role.name
 }
-/*
-resource "aws_eks_addon" "aws-efs-csi-driver" {
-  cluster_name = aws_eks_cluster.workbc-cluster.name
-  addon_name   = "aws-efs-csi-driver"
 
-  pod_identity_association {
-    role_arn = aws_iam_role.efs-csi-role.arn
-    service_account = "efs-csi-controller-sa"
-  }
-}*/
 
 #Node group role
 resource "aws_iam_role" "eks-ng-role" {
@@ -127,40 +82,7 @@ resource "aws_iam_role_policy_attachment" "ng-AmazonEC2ContainerRegistryReadOnly
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks-ng-role.name
 }
-/*
-#Node group
-resource "aws_eks_node_group" "eks-ng" {
-  cluster_name    = aws_eks_cluster.workbc-cluster.name
-  node_group_name = "eks-ng"
-  node_role_arn   = aws_iam_role.eks-ng-role.arn
-  subnet_ids      = data.aws_subnets.app.ids
-  
-#  launch_template {
-#    id      = aws_launch_template.eks_nodes_lt.id
-#    version = "$Latest"
-#  }
 
-  scaling_config {
-    desired_size = 2
-    max_size     = 10
-    min_size     = 1
-  }
-
-  instance_types = ["t3.large"]
-
-  update_config {
-    max_unavailable = 1
-  }
-
-  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
-  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
-  depends_on = [
-    aws_iam_role_policy_attachment.ng-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.ng-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.ng-AmazonEC2ContainerRegistryReadOnly,
-  ]
-}
-*/
 
 #Cluster auto scaler role
 resource "aws_iam_role" "cluster_auto_scaler_role" {
@@ -248,12 +170,4 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
   }
   EOF
 }
-/*
-resource "aws_security_group_rule" "allow_alb3" {
-  type                     = "ingress"
-  from_port                = 8080
-  to_port                  = 8081
-  protocol                 = "tcp"
-  security_group_id        = data.aws_security_group.eks_node_sg.id
-  source_security_group_id = aws_security_group.alb_sg.id
-}*/
+
