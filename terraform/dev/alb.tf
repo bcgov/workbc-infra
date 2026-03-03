@@ -305,7 +305,7 @@ resource "aws_alb_target_group" "workbc2" {
 
 resource "aws_lb_listener_rule" "host_based_weighted_routing6" {
   listener_arn = aws_lb_listener.https_listener.arn
-  priority     = 120
+  priority     = 130
 
   action {
     type             = "forward"
@@ -318,4 +318,5 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing6" {
     }
   }
 }
+
 
