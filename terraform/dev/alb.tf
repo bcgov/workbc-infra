@@ -309,7 +309,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing6" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.workbc.arn
+    target_group_arn = aws_alb_target_group.workbc2.arn
   }
 
   condition {
@@ -318,3 +318,4 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing6" {
     }
   }
 }
+
