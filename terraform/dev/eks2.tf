@@ -65,7 +65,7 @@ resource "aws_eks_node_group" "eks-ng2" {
     min_size     = 1
   }
 
-  instance_types = ["t3.large"]
+  instance_types = ["t3.xlarge"]
 
   update_config {
     max_unavailable = 1
