@@ -85,7 +85,7 @@ resource "aws_cloudfront_response_headers_policy" "cors_api" {
     access_control_allow_credentials = true
 
     access_control_allow_origins {
-      items = ["https://dev.workbc.ca", "http://localhost", "http://localhost:8080", "http://workbc.docker.localhost:8000"]
+      items = ["https://dev.workbc.ca", "https://dev2.workbc.ca", "http://localhost", "http://localhost:8080", "http://workbc.docker.localhost:8000"]
     }
 
     access_control_allow_methods {
