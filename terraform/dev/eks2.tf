@@ -66,6 +66,7 @@ resource "aws_eks_node_group" "eks-ng" {
   }
 
   instance_types = ["g4dn.xlarge"]
+  ami_type = "AL2_x86_64_GPU"
 
   update_config {
     max_unavailable = 1
