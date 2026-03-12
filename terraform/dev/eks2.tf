@@ -67,6 +67,7 @@ resource "aws_eks_node_group" "eks-ng" {
 
   instance_types = ["g4dn.xlarge"]
   ami_type = "AL2023_x86_64_NVIDIA"
+  disk_size = "30"
 
   update_config {
     max_unavailable = 1
