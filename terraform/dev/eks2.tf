@@ -72,7 +72,7 @@ resource "aws_eks_node_group" "eks-ng" {
   }
 
   taint {
-    key = "dedicated"
+    key = "nvidia.com/gpu"
     value = "gpuGroup"
     effect = "NO_SCHEDULE"
   }
