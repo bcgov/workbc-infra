@@ -52,6 +52,40 @@ resource "aws_eks_addon" "secrets-manager-addon2" {
   addon_name   = "aws-secrets-store-csi-driver-provider"
 }
 
+#Node group - GPU
+resource "aws_eks_node_group" "eks-ng" {
+  cluster_name    = aws_eks_cluster.workbc-cluster2.name
+  node_group_name = "eks-ng-gpu"
+  node_role_arn   = aws_iam_role.eks-ng-role.arn
+  subnet_ids      = data.aws_subnets.app.ids
+
+  scaling_config {
+    desired_size = 1
+    max_size     = 1
+    min_size     = 1
+  }
+
+  instance_types = ["g4dn.xlarge"]
+
+  update_config {
+    max_unavailable = 1
+  }
+
+  taint {
+    key = "dedicated"
+    value = "gpuGroup"
+    effect = "NO_SCHEDULE"
+  }
+
+  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
+  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
+  depends_on = [
+    aws_iam_role_policy_attachment.ng-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.ng-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.ng-AmazonEC2ContainerRegistryReadOnly,
+  ]
+}
+
 #Node group
 resource "aws_eks_node_group" "eks-ng2" {
   cluster_name    = aws_eks_cluster.workbc-cluster2.name
