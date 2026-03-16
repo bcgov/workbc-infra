@@ -35,7 +35,10 @@ resource "aws_eks_addon" "coredns-addon2" {
   addon_name   = "coredns"
 }
 
-
+resource "aws_eks_addon" "aws-ebs-csi-driver" {
+  cluster_name = aws_eks_cluster.workbc-cluster2.name
+  addon_name   = "aws-ebs-csi-driver"
+}
 
 resource "aws_eks_addon" "aws-efs-csi-driver2" {
   cluster_name = aws_eks_cluster.workbc-cluster2.name
