@@ -50,6 +50,30 @@ resource "aws_iam_role_policy_attachment" "ec-AmazonEFSCSIDriverPolicy" {
   role       = aws_iam_role.efs-csi-role.name
 }
 
+#EBS CSI role
+resource "aws_iam_role" "ebs-csi-role" {
+  name = "ebs-csi-role"
+
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      Effect = "Allow"
+      Principal = {
+        Service = "pods.eks.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+#EBS CSI policy
+resource "aws_iam_role_policy_attachment" "ec-AmazonEBSCSIDriverPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = aws_iam_role.ebs-csi-role.name
+}
 
 #Node group role
 resource "aws_iam_role" "eks-ng-role" {
