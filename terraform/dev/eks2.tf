@@ -38,6 +38,11 @@ resource "aws_eks_addon" "coredns-addon2" {
 resource "aws_eks_addon" "aws-ebs-csi-driver" {
   cluster_name = aws_eks_cluster.workbc-cluster2.name
   addon_name   = "aws-ebs-csi-driver"
+
+  pod_identity_association {
+    role_arn = aws_iam_role.ebs-csi-role.arn
+    service_account = "ebs-csi-controller-sa" # Auto generated
+  }
 }
 
 resource "aws_eks_addon" "aws-efs-csi-driver2" {
