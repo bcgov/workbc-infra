@@ -48,7 +48,7 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
         forward = "all"
       }
     }*/
-	cache_policy_id = "413f2b1d-5b0d-4c4c-8e3f-7d3b3a0a1f9a"
+	cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
