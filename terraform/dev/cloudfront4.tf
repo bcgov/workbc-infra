@@ -6,7 +6,7 @@ resource "aws_cloudfront_origin_request_policy" "custom2" {
   headers_config {
     header_behavior = "whitelist"
     headers {
-      items = ["Origin"]
+      items = ["Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"]
     }
   }
 
