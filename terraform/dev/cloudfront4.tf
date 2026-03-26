@@ -59,16 +59,16 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
 
     target_origin_id = random_integer.cf_origin_id.result
 	
-/*    forwarded_values {
+    forwarded_values {
       query_string = true
       headers = ["Origin", "Authorization"]
 
       cookies {
         forward = "all"
       }
-    }*/
-	cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
-	origin_request_policy_id = aws_cloudfront_origin_request_policy.custom2.id
+    }
+/*	cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+	origin_request_policy_id = aws_cloudfront_origin_request_policy.custom2.id*/
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
