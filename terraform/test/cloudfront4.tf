@@ -1,5 +1,24 @@
 # cloudfront for JobBoard
 
+resource "aws_cloudfront_origin_request_policy" "custom2" {
+  name = "Jobboard-origin-request-policy"
+
+  headers_config {
+    header_behavior = "whitelist"
+    headers {
+      items = ["Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"]
+    }
+  }
+
+  cookies_config {
+    cookie_behavior = "all"
+  }
+
+  query_strings_config {
+    query_string_behavior = "all"
+  }
+}
+
 resource "aws_cloudfront_distribution" "workbc-jb" {
 
   count = var.cloudfront ? 1 : 0
@@ -40,15 +59,16 @@ resource "aws_cloudfront_distribution" "workbc-jb" {
 
     target_origin_id = random_integer.cf_origin_id.result
 
-    forwarded_values {
+/*    forwarded_values {
       query_string = true
       headers = ["Origin", "Authorization"]
 
       cookies {
         forward = "all"
       }
-    }
-#	cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+    }*/
+	cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+	origin_request_policy_id = aws_cloudfront_origin_request_policy.custom2.id
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
