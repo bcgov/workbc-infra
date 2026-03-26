@@ -1,5 +1,24 @@
 # cloudfront for JobBoard
 
+resource "aws_cloudfront_origin_request_policy" "custom2" {
+  name = "Jobboard-origin-request-policy"
+
+  headers_config {
+    header_behavior = "whitelist"
+    headers {
+      items = ["Origin", "Authorization"]
+    }
+  }
+
+  cookies_config {
+    cookie_behavior = "all"
+  }
+
+  query_strings_config {
+    query_string_behavior = "all"
+  }
+}
+
 resource "aws_cloudfront_distribution" "workbc-jb" {
 
   count = var.cloudfront ? 1 : 0
