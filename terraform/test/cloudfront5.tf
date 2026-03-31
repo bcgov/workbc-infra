@@ -9,8 +9,8 @@ resource "aws_cloudfront_distribution" "workbc-jb-adm" {
       http_port              = 80
       https_port             = 443
       origin_protocol_policy = "https-only"
-      origin_ssl_protocols = [
-      "TLSv1.2"]
+      origin_ssl_protocols = ["TLSv1.2"]
+	  origin_read_timeout = 60
     }
 
     domain_name = "workbc-jb-adm.a55eb5-test.stratus.cloud.gov.bc.ca"
