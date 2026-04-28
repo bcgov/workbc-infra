@@ -5,7 +5,7 @@ resource "helm_release" "secrets_store_csi_driver" {
   chart      = "secrets-store-csi-driver"
   version    = "1.4.3"  # Use latest
 
-  set {
+  set = {
     name  = "syncSecret.enabled"
     value = "true"
   }
