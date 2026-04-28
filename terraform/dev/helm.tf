@@ -1,4 +1,4 @@
-/*resource "helm_release" "secrets_store_csi_driver" {
+resource "helm_release" "secrets_store_csi_driver" {
   name       = "csi-secrets-store"
   namespace  = "kube-system"
   repository = "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"
@@ -18,4 +18,3 @@ resource "helm_release" "secrets_store_csi_aws_provider" {
   chart      = "secrets-store-csi-driver-provider-aws"
   depends_on = [helm_release.secrets_store_csi_driver]
 }
-*/
