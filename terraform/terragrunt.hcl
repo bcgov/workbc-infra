@@ -37,7 +37,7 @@ generate "provider" {
     region  = var.aws_region
   }
   provider "helm" {
-	kubernetes {
+	kubernetes = {
 		host = aws_eks_cluster.workbc-cluster2.endpoint
 		cluster_ca_certificate = base64decode(aws_eks_cluster.workbc-cluster2.certificate_authority[0].data)
 		token = data.aws_eks_cluster_auth.workbc-cluster2.token
