@@ -137,3 +137,7 @@ resource "aws_security_group_rule" "allow_alb2" {
   security_group_id        = data.aws_security_group.eks_node_sg2.id
   source_security_group_id = aws_security_group.alb_sg.id
 }
+
+data "aws_eks_cluster_auth" "workbc-cluster2" {
+  name = aws_eks_cluster.workbc-cluster2.name
+}
