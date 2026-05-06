@@ -262,7 +262,22 @@ resource "aws_iam_role_policy" "ses_mailer_policy" {
         "s3:AbortMultipartUpload"
       ],
       "Resource": "${aws_s3_bucket.workbc_s32.arn}/*"
-    }
+    },
+	{
+			  "Effect": "Allow",
+			  "Action": [
+				  "secretsmanager:GetSecretValue",
+				  "secretsmanager:DescribeSecret"
+			  ],
+			  "Resource": "arn:aws:secretsmanager:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:secret:*"
+		  },
+		  {
+			  "Effect": "Allow",
+			  "Action": [
+				  "kms:Decrypt"
+			  ],
+			  "Resource": "arn:aws:kms:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:key/*"
+		  }
       ]
   }
   EOF
