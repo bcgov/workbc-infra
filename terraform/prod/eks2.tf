@@ -47,10 +47,10 @@ resource "aws_eks_addon" "aws-efs-csi-driver2" {
   }
 }
 
-resource "aws_eks_addon" "secrets-manager-addon2" {
-  cluster_name = aws_eks_cluster.workbc-cluster2.name
-  addon_name   = "aws-secrets-store-csi-driver-provider"
-}
+#resource "aws_eks_addon" "secrets-manager-addon2" {
+#  cluster_name = aws_eks_cluster.workbc-cluster2.name
+#  addon_name   = "aws-secrets-store-csi-driver-provider"
+#}
 
 #Node group
 resource "aws_eks_node_group" "eks-ng2" {
@@ -94,3 +94,6 @@ resource "aws_security_group_rule" "allow_alb2" {
   source_security_group_id = aws_security_group.alb_sg.id
 }
 
+data "aws_eks_cluster_auth" "workbc-cluster2" {
+  name = aws_eks_cluster.workbc-cluster2.name
+}
