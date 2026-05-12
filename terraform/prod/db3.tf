@@ -3,7 +3,7 @@
 resource "aws_rds_cluster" "postgres-jobboard" {
   cluster_identifier      = "jobboard-postgres-cluster"
   engine                  = "aurora-postgresql"
-  engine_version          = "16.8"
+  engine_version          = "16.11"
   engine_mode             = "provisioned"
   master_username         = local.db_creds3.adm_username
   master_password         = local.db_creds3.adm_password
