@@ -179,6 +179,22 @@ resource "aws_cloudfront_distribution" "workbc-main" {
 	viewer_protocol_policy = "redirect-to-https"
   }
 
+  ordered_cache_behavior {
+        path_pattern = "/user/register"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "Maintenance-Window"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }
+
   price_class = "PriceClass_100"
 
   restrictions {
