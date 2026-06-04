@@ -23,6 +23,12 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 	
   }
 
+  origin {
+	  domain_name = "workbc-bucket.s3.ca-central-1.amazonaws.com"
+	  origin_id = "Maintenance-Window"
+	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+	}
+
   enabled         = true
   is_ipv6_enabled = true
   comment         = "Career Discovery Quizzes"
@@ -55,6 +61,22 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 	
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
+  }
+
+  ordered_cache_behavior {
+        path_pattern = "/user/register"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "Maintenance-Window"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
   }
 
   price_class = "PriceClass_100"
