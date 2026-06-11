@@ -1,4 +1,4 @@
-# cloudfront.tf
+# cloudfront.tf - CER
 resource "random_integer" "cf_origin_id" {
   min = 1
   max = 100
@@ -26,6 +26,12 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
 	}
 	
   }
+
+  origin {
+	  domain_name = aws_s3_bucket.workbc_s3.bucket_regional_domain_name
+	  origin_id = "Maintenance-Window"
+	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+	}
 
   enabled         = true
   is_ipv6_enabled = true
@@ -60,6 +66,22 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
   }
+/*
+  ordered_cache_behavior {
+        path_pattern = "/user/register"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "Maintenance-Window"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }*/
 
   price_class = "PriceClass_100"
 
