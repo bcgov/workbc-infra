@@ -63,7 +63,7 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
   }
 
-/*
+
   ordered_cache_behavior {
         path_pattern = "/user/register"
         allowed_methods = [
@@ -78,7 +78,7 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
         target_origin_id = "Maintenance-Window"
 	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
 	viewer_protocol_policy = "redirect-to-https"
-  }*/
+  }
 
   price_class = "PriceClass_100"
 
@@ -94,7 +94,7 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
   aliases = ["careerdiscoveryquizzes.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/34b94c2f-2826-4ec6-8883-423ecc3364dd"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/033edc74-7883-4efc-acd2-277c20abe6d3"
     ssl_support_method = "sni-only"
   }
 }
