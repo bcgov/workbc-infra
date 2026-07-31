@@ -21,7 +21,7 @@ resource "aws_elasticache_replication_group" "jb_redis_rg2" {
 
 resource "aws_elasticache_cluster" "replica5" {
 	count 		= 	1
-	cluster_id	=	"jb-rep-group-${count.index}"
+	cluster_id	=	"jb-rep-group2-${count.index}"
 	replication_group_id	=	aws_elasticache_replication_group.jb_redis_rg2.id
 }
 
