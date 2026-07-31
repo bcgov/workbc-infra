@@ -1,6 +1,6 @@
-data "aws_region" "current" {}
-data "aws_caller_identity" "current" {}
-
+#data "aws_region" "current" {}
+#data "aws_caller_identity" "current" {}
+#
 #resource "aws_iam_service_linked_role" "es" {
 #	aws_service_name = "es.amazonaws.com"
 #}
