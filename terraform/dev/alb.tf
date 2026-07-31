@@ -319,4 +319,84 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing6" {
   }
 }
 
+resource "aws_alb_target_group" "jb2" {
+  name                 = "jb2-target-group"
+  port                 = 30087
+  protocol             = "HTTP"
+  vpc_id               = data.aws_vpc.main.id
+  target_type          = "instance"
+  deregistration_delay = 30
 
+  health_check {
+    healthy_threshold   = "5"
+    interval            = "30"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "5"
+    path                = "/health"
+    unhealthy_threshold = "2"
+  }
+    
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = var.common_tags
+}
+
+resource "aws_lb_listener_rule" "host_based_weighted_routing7" {
+  listener_arn = aws_lb_listener.https_listener.arn
+  priority     = 65
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.jb2.arn
+  }
+
+  condition {
+    host_header {
+      values = ["workbc-jb2.*"]
+    }
+  }
+}
+
+resource "aws_alb_target_group" "jbadm2" {
+  name                 = "jb2-adm-target-group"
+  port                 = 30086
+  protocol             = "HTTP"
+  vpc_id               = data.aws_vpc.main.id
+  target_type          = "instance"
+  deregistration_delay = 30
+
+  health_check {
+    healthy_threshold   = "5"
+    interval            = "30"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "5"
+    path                = "/health"
+    unhealthy_threshold = "2"
+  }
+    
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = var.common_tags
+}
+
+resource "aws_lb_listener_rule" "host_based_weighted_routing8" {
+  listener_arn = aws_lb_listener.https_listener.arn
+  priority     = 55
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.jbadm2.arn
+  }
+
+  condition {
+    host_header {
+      values = ["workbc-jb2-adm.*"]
+    }
+  }
+}
