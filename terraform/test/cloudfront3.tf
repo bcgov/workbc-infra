@@ -212,7 +212,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
     acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/6c9be00f-eb33-4bdb-a388-02c6f7d2c1d5"
     ssl_support_method = "sni-only"
   }
-  
+  web_acl_id = aws_wafv2_web_acl.webacl_cf.arn
   depends_on = [aws_cloudfront_cache_policy.custom, aws_cloudfront_origin_request_policy.custom]
 }
 
