@@ -1,3 +1,8 @@
+provider "aws" {
+  alias  = "cloudfront_waf"
+  region = "us-east-1" # This hardcoded global endpoint is only used for the WAF resources.
+}
+
 resource "aws_wafv2_ip_set" "cf_ipv4" {
   name               = "cf_ipv4"
   description        = "AWS CloudFront IP"
@@ -7,6 +12,7 @@ resource "aws_wafv2_ip_set" "cf_ipv4" {
 }
 
 resource "aws_wafv2_ip_set" "tester_ipv4" {
+  provider           = aws.cloudfront_waf
   name               = "tester_ipv4"
   description        = "Tester IP"
   scope              = "CLOUDFRONT"
@@ -14,6 +20,7 @@ resource "aws_wafv2_ip_set" "tester_ipv4" {
 }
 
 resource "aws_wafv2_ip_set" "tester_ipv6" {
+  provider           = aws.cloudfront_waf
   name               = "tester_ipv6"
   description        = "Tester IP"
   scope              = "CLOUDFRONT"
@@ -22,6 +29,7 @@ resource "aws_wafv2_ip_set" "tester_ipv6" {
 
 # Web ACL for CloudFront
 resource "aws_wafv2_web_acl" "webacl-cf" {
+  provider    = aws.cloudfront_waf
   name        = "WebACL-CF"
   description = "Web ACL for CloudFront"
   scope       = "CLOUDFRONT" # Must match the scope of the IP Set
