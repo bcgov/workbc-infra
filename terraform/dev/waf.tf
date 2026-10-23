@@ -28,7 +28,7 @@ resource "aws_wafv2_ip_set" "tester_ipv6" {
 }
 
 # Web ACL for CloudFront
-resource "aws_wafv2_web_acl" "webacl-cf" {
+resource "aws_wafv2_web_acl" "webacl_cf" {
   provider    = aws.cloudfront_waf
   name        = "WebACL-CF"
   description = "Web ACL for CloudFront"
@@ -99,7 +99,7 @@ resource "aws_wafv2_web_acl" "webacl-cf" {
 }
 
 # Web ACL for ALB
-resource "aws_wafv2_web_acl" "webacl-alb" {
+resource "aws_wafv2_web_acl" "webacl_alb" {
   name        = "WebACL-ALB"
   description = "Web ACL for Application Load Balancer"
   scope       = "REGIONAL" # Must match the scope of the IP Set
@@ -141,4 +141,9 @@ resource "aws_wafv2_web_acl" "webacl-alb" {
     metric_name                = "WAFAllowCFIPMetric"
     sampled_requests_enabled   = true
   }
+}
+
+resource "aws_wafv2_web_acl_association" "alb_association" {
+  resource_arn = aws_lb.default_alb.arn             # The ARN of your ALB
+  web_acl_arn  = aws_wafv2_web_acl.webacl_alb.arn # The ARN of your Regional Web ACL
 }
