@@ -29,6 +29,12 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 	}
 
+  custom_error_response {
+      error_code = 403
+      response_page_path = "/indexwebacl.html"
+      response_code = 200
+	}
+
   enabled         = true
   is_ipv6_enabled = true
   comment         = "Career Discovery Quizzes"
@@ -65,6 +71,22 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 
   ordered_cache_behavior {
         path_pattern = "/user/register"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "Maintenance-Window"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }
+
+  ordered_cache_behavior {
+        path_pattern = "/indexwebacl.html"
         allowed_methods = [
         "DELETE",
         "GET",
