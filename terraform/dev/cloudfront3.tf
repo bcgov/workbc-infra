@@ -94,7 +94,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
 	
 	custom_error_response {
       error_code = 403
-      response_page_path = "/indexmaintenance.html"
+      response_page_path = "/indexwebacl.html"
       response_code = 200
 	}
 
@@ -160,7 +160,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
   }
 
     ordered_cache_behavior {
-        path_pattern = "/indexmaintenance.html"
+        path_pattern = "/indexwebacl.html"
         allowed_methods = [
         "DELETE",
         "GET",
