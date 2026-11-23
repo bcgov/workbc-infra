@@ -205,7 +205,7 @@ ordered_cache_behavior {
   aliases = ["dev.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:396067939651:certificate/c0a913cc-fd86-44e0-9096-fbcb7a98044b"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:396067939651:certificate/f23125b0-5048-475f-9ac3-1c36fcab1e1b"
     ssl_support_method = "sni-only"
   }
   web_acl_id = aws_wafv2_web_acl.webacl_cf.arn
