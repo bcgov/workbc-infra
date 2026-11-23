@@ -29,6 +29,12 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 	}
 
+  custom_error_response {
+      error_code = 403
+      response_page_path = "/indexwebacl.html"
+      response_code = 200
+	}
+
   enabled         = true
   is_ipv6_enabled = true
   comment         = "Career Discovery Quizzes"
