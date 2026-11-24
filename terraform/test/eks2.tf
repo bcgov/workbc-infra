@@ -53,12 +53,17 @@ resource "aws_eks_addon" "aws-efs-csi-driver2" {
 #  addon_name   = "aws-secrets-store-csi-driver-provider"
 #}
 
+data "aws_ssm_parameter" "eks_ami_release" {
+  name = "/aws/service/eks/optimized-ami/${aws_eks_cluster.workbc-cluster2.version}/amazon-linux-2023/x86_64/standard/recommended/release_version"
+}
+
 #Node group
 resource "aws_eks_node_group" "eks-ng2" {
   cluster_name    = aws_eks_cluster.workbc-cluster2.name
   node_group_name = "eks-ng2"
   node_role_arn   = aws_iam_role.eks-ng-role.arn
   subnet_ids      = data.aws_subnets.app.ids
+  release_version = nonsensitive(data.aws_ssm_parameter.eks_ami_release.value)
 
   scaling_config {
     desired_size = 4

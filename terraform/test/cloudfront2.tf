@@ -29,6 +29,12 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 	}
 
+  custom_error_response {
+      error_code = 403
+      response_page_path = "/indexwebacl.html"
+      response_code = 200
+	}
+
   enabled         = true
   is_ipv6_enabled = true
   comment         = "Career Discovery Quizzes"
@@ -79,6 +85,22 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
 	viewer_protocol_policy = "redirect-to-https"
   }
 
+  ordered_cache_behavior {
+        path_pattern = "/indexwebacl.html"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "Maintenance-Window"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }
+
   price_class = "PriceClass_100"
 
   restrictions {
@@ -93,7 +115,7 @@ resource "aws_cloudfront_distribution" "workbc-cdq" {
   aliases = ["careerdiscoveryquizzes-test.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/6c9be00f-eb33-4bdb-a388-02c6f7d2c1d5"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/bb8f60b9-94ef-4597-9359-89633c6139c1"
     ssl_support_method = "sni-only"
   }
   web_acl_id = aws_wafv2_web_acl.webacl_cf.arn

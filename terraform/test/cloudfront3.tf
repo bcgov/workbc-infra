@@ -93,7 +93,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
 	
 	custom_error_response {
       error_code = 403
-      response_page_path = "/indexmaintenance.html"
+      response_page_path = "/indexwebacl.html"
       response_code = 200
 	}  
 
@@ -164,7 +164,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
   }
 
     ordered_cache_behavior {
-        path_pattern = "/indexmaintenance.html"
+        path_pattern = "/indexwebacl.html"
         allowed_methods = [
         "DELETE",
         "GET",
@@ -209,7 +209,7 @@ resource "aws_cloudfront_distribution" "workbc-main" {
   aliases = ["test.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/6c9be00f-eb33-4bdb-a388-02c6f7d2c1d5"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/bb8f60b9-94ef-4597-9359-89633c6139c1"
     ssl_support_method = "sni-only"
   }
   web_acl_id = aws_wafv2_web_acl.webacl_cf.arn
