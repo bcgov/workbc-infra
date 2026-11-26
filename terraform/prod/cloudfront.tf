@@ -97,7 +97,7 @@ resource "aws_cloudfront_distribution" "workbc-cer" {
   aliases = ["careereducation.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/033edc74-7883-4efc-acd2-277c20abe6d3"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:201730504816:certificate/26345cf1-4a18-48e3-b71e-3c2e25d4e7ab"
     ssl_support_method = "sni-only"
   }
 }
